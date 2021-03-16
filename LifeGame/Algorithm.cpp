@@ -15,14 +15,14 @@ void GenerateLife(int** field, int width, int heigth) {
 			newfield[i][j] = field[i][j];
 		}
 	}
-	set<int> hashes{};
-	int correntHash{};
+	set<unsigned int> hashes{};
+	unsigned int correntHash{};
 	hashes.insert(GetHashArray(field, width, heigth));
 
 	PrintField(field, width, heigth);
 	while (true) {
 		for (int i = 1; i < width - 1; i++) {
-			for (int j = 1; j < heigth; j++) {
+			for (int j = 1; j < heigth - 1; j++) {
 				LiveOrDieCell(field, newfield, i, j);
 			}
 		}
@@ -31,7 +31,7 @@ void GenerateLife(int** field, int width, int heigth) {
 				field[i][j] = newfield[i][j];
 			}
 		}
-		if (!isContinue()) 
+		if (!isContinue())
 			return;
 		PrintField(field, width, heigth);
 		correntHash = GetHashArray(field, width, heigth);
@@ -88,27 +88,27 @@ void LiveOrDieCell(int** field, int** newfield, int i, int j) {
 		newfield[i][j] = Dead;
 }
 
-int GetHashArray(int** field, int width, int heigth) {
+unsigned int GetHashArray(int** field, int width, int heigth) {
 	unsigned int hashX{};
 	unsigned int hashY{};
 
 	for (int i = 1; i < width - 1; i++) {
 		unsigned int x{};
 		for (int j = 1; j < heigth - 1; j++) {
-			x += field[i][j] * j;
+			x += field[i][j] * pow(2, j - 1);
 		}
-		hashX += x * i;
+		hashX += x ^ i;
 	}
 
 	for (int j = 1; j < heigth - 1; j++) {
 		unsigned int y{};
 		for (int i = 1; i < width - 1; i++) {
-			y += field[i][j] * i;
+			y += field[i][j] * pow(2, i - 1);
 		}
-		hashY += y * j;
+		hashY += y ^ j;
 	}
 
-	return (hashX * 2) + hashY;
+	return (width ^ hashX) ^ hashY;
 }
 
 

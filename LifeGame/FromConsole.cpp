@@ -5,6 +5,7 @@
 #include "SaveToFile.h"
 #include "UnknownCommand.h"
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -19,10 +20,13 @@ void FromConsole() {
 int GetBorder(string name) {
 	int value{};
 	while (true) {
-		cout << "Введите " << name << " поля (минимум 3)" << endl;
+		cout << "Введите " << name << " поля (минимум 3, максимум 32)" << endl;
 		value = GetCorrectInt();
 		if (value < 3) {
 			cout << "Число должно быть больше или равно 3" << endl;
+		}
+		else if (value > 32) {
+			cout << "Слишком большое значение, введите другое" << endl;
 		}
 		else {
 			break;
@@ -70,36 +74,29 @@ void SetPoints(int width, int heigth) {
 		}
 	}
 
-	vector<pair<int, int>> inputPoints{};
+	set<pair<int, int>> inputPoints{};
 	for (int i = 0; i < pointCount; i++) {
-		int x = GetCoordinate('X', i, width);
-		int y = GetCoordinate('Y', i, heigth);
-		inputPoints.emplace_back(make_pair(x, y));
+		while (true) {
+			int x = GetCoordinate('X', i, width);
+			int y = GetCoordinate('Y', i, heigth);
+			auto point = make_pair(x, y);
+			if (inputPoints.count(point) != 0) {
+				cout << "Вы уже задали такую точку, выберите другую" << endl;
+			}
+			else {
+				inputPoints.insert(point);
+				break;
+			}
+		}
 	}
 
 	for (auto& pair : inputPoints) {
 		field[pair.first + 1][pair.second + 1] = Alive;
 	}
-	cout << "Будете сохранять исходные данные?" << endl
-		<< "1 - Да\n2 - Нет" << endl;
-	int choice{};
-	while (choice == 0) {
-		cin >> choice;
-		cout << endl;
-		CinClear();
-		switch (choice)
-		{
-		case Yes:
-			SaveToFile(width, heigth, inputPoints);
-			break;
-		case No:
-			break;
-		default:
-			UnknownCommand();
-			choice = 0;
-			break;
-		}
-	}
+
+	if (ChoiceToSave())
+		SaveToFile(width, heigth, inputPoints);
+
 	GenerateLife(field, width, heigth);
 	for (int i = 0; i < width; i++)
 		delete[] field[i];

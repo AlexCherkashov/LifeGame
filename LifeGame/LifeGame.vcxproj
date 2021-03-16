@@ -146,6 +146,7 @@
     <ClCompile Include="FromConsole.cpp" />
     <ClCompile Include="FromFile.cpp" />
     <ClCompile Include="LifeGame.cpp" />
+    <ClCompile Include="RandomInput.cpp" />
     <ClCompile Include="SaveToFile.cpp" />
     <ClCompile Include="UnknownCommand.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="CinClear.h" />
     <ClInclude Include="FromConsole.h" />
     <ClInclude Include="FromFile.h" />
+    <ClInclude Include="RandomInput.h" />
     <ClInclude Include="UnknownCommand.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="SaveToFile.h" />

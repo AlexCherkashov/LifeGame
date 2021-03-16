@@ -1,4 +1,4 @@
-#include <vector>
+#include <set>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -12,7 +12,7 @@
 using namespace std;
 
 
-void SaveToFile(int width, int heigth, vector<pair<int, int>> inputPoints) {
+void SaveToFile(int width, int heigth, set<pair<int, int>> inputPoints) {
 	bool isNotCorrectPath = true;
 	string path;
 	ofstream stream;
@@ -70,4 +70,29 @@ bool IsContinueToSave() {
 			UnknownCommand();
 		}
 	}
+}
+
+bool ChoiceToSave() {
+	cout << "Будете сохранять исходные данные?" << endl
+		<< "1 - Да\n2 - Нет" << endl;
+	int choice{};
+	while (choice == 0) {
+		cin >> choice;
+		cout << endl;
+		CinClear();
+		switch (choice)
+		{
+		case Yes:
+			return (true);
+			break;
+		case No:
+			return (false);
+			break;
+		default:
+			UnknownCommand();
+			choice = 0;
+			break;
+		}
+	}
+	return (true);
 }

@@ -1,7 +1,8 @@
 #pragma once
-#include <vector>
+#include <set>
 
 using namespace std;
 
-void SaveToFile(int width, int heigth, vector<pair<int, int>> inputPoints);
+void SaveToFile(int width, int heigth, set<pair<int, int>> inputPoints);
 bool IsContinueToSave();
+bool ChoiceToSave();

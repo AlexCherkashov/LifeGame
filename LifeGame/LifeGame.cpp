@@ -5,6 +5,7 @@
 #include "FromFile.h"
 #include "Main.h"
 #include "UnknownCommand.h"
+#include "RandomInput.h"
 #include <vector>
 #include <cmath>
 #include <conio.h>
@@ -50,19 +51,22 @@ void BeginOfProces() {
 	int choice{};
 	while (true) {
 		cout << "Выберите сповоб ввода данных\n" << "1 - Ввод с консоли\n"
-			<< "2 - Ввод из файла" << endl;
+			<< "2 - Ввод из файла\n3 - Случайные значения" << endl;
 		cin >> choice;
 		cout << endl;
 		CinClear();
 
 		switch (choice)
 		{
-		case Run::Life:
+		case InputFromConsole:
 			FromConsole();
 			return;
 			break;
-		case Run::Exit:
+		case InputFromFile:
 			FromFile();
+			return;
+		case InputRandom:
+			RandomInput();
 			return;
 		default:
 			UnknownCommand();
