@@ -3,6 +3,8 @@
 #include <conio.h>
 #include <vector>
 #include "Algorithm.h"
+#include "CinClear.h"
+#include "SaveToFile.h"
 
 using namespace std;
 
@@ -19,8 +21,11 @@ void GenerateLife(int** field, int width, int heigth) {
 	unsigned int correntHash{};
 	hashes.insert(GetHashArray(field, width, heigth));
 
+	system("cls");
+	cout << "Для продолжения нажмите пробел, чтобы выйти нажмите ESC" << endl;
 	PrintField(field, width, heigth);
-	while (true) {
+	bool isContinue = true;
+	while (isContinue) {
 		for (int i = 1; i < width - 1; i++) {
 			for (int j = 1; j < heigth - 1; j++) {
 				LiveOrDieCell(field, newfield, i, j);
@@ -31,8 +36,11 @@ void GenerateLife(int** field, int width, int heigth) {
 				field[i][j] = newfield[i][j];
 			}
 		}
-		if (!isContinue())
-			return;
+		if (!IsContinue())
+			break;
+
+		system("cls");
+		cout << "Для продолжения нажмите пробел, чтобы выйти нажмите ESC" << endl;
 		PrintField(field, width, heigth);
 		correntHash = GetHashArray(field, width, heigth);
 		if (hashes.count(correntHash) != 0) {
@@ -48,7 +56,9 @@ void GenerateLife(int** field, int width, int heigth) {
 					cout << "Хорошо, нажмите пробел чтобы продолжить" << endl;
 					break;
 				case Exit:
-					return;
+					isContinue = false;
+					isNotOk = false;
+					break;
 				default:
 					cout << "Неверно, нажмите пробел чтобы продолжить или ESC чтобы выйти" << endl;
 					break;
@@ -59,10 +69,25 @@ void GenerateLife(int** field, int width, int heigth) {
 			hashes.insert(correntHash);
 		}
 	}
+
+	if (ChoiceToSave("результат работы")) {
+		set<pair<int, int>> inputPoints{};
+		for (int i = 1; i < width - 1; ++i) {
+			for (int j = 1; j < heigth - 1; ++j) {
+				if (field[i][j] == Alive)
+					inputPoints.insert(make_pair(i - 1, j - 1));
+			}
+		}
+		SaveToFile(width, heigth, inputPoints);
+	}
+
+	for (int i = 0; i < width; i++)
+		delete[] newfield[i];
+	delete[] newfield;
 }
 
 void PrintField(int** field, int width, int heigth) {
-	system("cls");
+
 	for (int i = 1; i < width - 1; ++i) {
 		for (int j = 1; j < heigth - 1; ++j) {
 			if (field[i][j] == Alive)
@@ -108,11 +133,11 @@ unsigned int GetHashArray(int** field, int width, int heigth) {
 		hashY += y ^ j;
 	}
 
-	return (width ^ hashX) ^ hashY;
+	return hashX ^ hashY;
 }
 
 
-bool isContinue() {
+bool IsContinue() {
 	char key{};
 	while (true) {
 		key = _getch();
@@ -120,9 +145,9 @@ bool isContinue() {
 		{
 		case Continue:
 			system("cls");
-			return (true);
+			return true;
 		case Exit:
-			return (false);
+			return false;
 		default:
 			cout << "Неверно, нажмите пробел чтобы продолжить или ESC чтобы выйти" << endl;
 			break;

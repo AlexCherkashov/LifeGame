@@ -93,8 +93,10 @@ void SetPoints(int width, int heigth) {
 	for (auto& pair : inputPoints) {
 		field[pair.first + 1][pair.second + 1] = Alive;
 	}
+	cout << endl;
+	PrintField(field, width, heigth);
 
-	if (ChoiceToSave())
+	if (ChoiceToSave("исходные данные"))
 		SaveToFile(width, heigth, inputPoints);
 
 	GenerateLife(field, width, heigth);

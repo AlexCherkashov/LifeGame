@@ -72,8 +72,8 @@ bool IsContinueToSave() {
 	}
 }
 
-bool ChoiceToSave() {
-	cout << "Будете сохранять исходные данные?" << endl
+bool ChoiceToSave(string dataType) {
+	cout << "Будете сохранять " << dataType << "?" << endl
 		<< "1 - Да\n2 - Нет" << endl;
 	int choice{};
 	while (choice == 0) {

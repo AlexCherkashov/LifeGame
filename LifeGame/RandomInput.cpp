@@ -32,7 +32,10 @@ void RandomInput() {
 		}
 	}
 
-	if (ChoiceToSave())
+	cout << endl;
+	PrintField(field, width, heigth);
+
+	if (ChoiceToSave("исходные данные"))
 		SaveToFile(width, heigth, inputPoints);
 
 	GenerateLife(field, width, heigth);
