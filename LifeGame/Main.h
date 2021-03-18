@@ -10,4 +10,4 @@ enum Input {
 };
 
 void RunProgram();
-void BeginOfProces();
+void BeginOfProcess();

@@ -51,8 +51,8 @@ bool check_reg(const string& path)
 	}
 
 	string first_four_simbols = name.substr(0, 4);
-	set<string> reservedFieNames = { "con.", "prn.", "aux.", "nul." };
-	if (reservedFieNames.count(first_four_simbols) != 0) {
+	set<string> reservedFileNames = { "con.", "prn.", "aux.", "nul." };
+	if (reservedFileNames.count(first_four_simbols) != 0) {
 		cout << "Это системный файл!" << endl;
 		return false;
 	}

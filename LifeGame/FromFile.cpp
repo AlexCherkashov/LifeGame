@@ -25,7 +25,7 @@ void FromFile() {
 			isNotCorrectInput = true;
 		}
 		if (!isNotCorrectInput) {
-			isNotCorrectInput = !isCorrectData(input);
+			isNotCorrectInput = !IsCorrectData(input);
 		}
 	}
 
@@ -70,6 +70,11 @@ bool GetDataFormFile(const string& path, vector<int>& input) {
 			stream.close();
 			return false;
 		}
+		catch (out_of_range) {
+			cout << "Файл содержит значение, выходящие за пределы int" << endl;
+			stream.close();
+			return false;
+		}
 	}
 	stream.close();
 
@@ -81,7 +86,7 @@ bool GetDataFormFile(const string& path, vector<int>& input) {
 	return true;
 }
 
-bool isCorrectData(vector<int>& input) {
+bool IsCorrectData(vector<int>& input) {
 	if (input.size() % 2 != 0) {
 		cout << "В файле должно быть чётное количество чисел" << endl;
 		return false;
@@ -100,6 +105,15 @@ bool isCorrectData(vector<int>& input) {
 	}
 	if (heigth < 3) {
 		cout << "Высота (второе значение) должно быть больше или равно 3м" << endl;
+		return false;
+	}
+
+	if (width > 32) {
+		cout << "Ширина (первое значение) должно быть меньше или равно 32м" << endl;
+		return false;
+	}
+	if (heigth > 32) {
+		cout << "Высота (второе значение) должно быть меньше или равно 32м" << endl;
 		return false;
 	}
 

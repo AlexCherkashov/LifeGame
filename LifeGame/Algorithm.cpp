@@ -19,7 +19,7 @@ void GenerateLife(int** field, int width, int heigth) {
 	}
 	set<unsigned int> hashes{};
 	unsigned int correntHash{};
-	hashes.insert(GetHashArray(field, width, heigth));
+	hashes.insert(GetMatrixHash(field, width, heigth));
 
 	system("cls");
 	cout << "Для продолжения нажмите пробел, чтобы выйти нажмите ESC" << endl;
@@ -42,7 +42,7 @@ void GenerateLife(int** field, int width, int heigth) {
 		system("cls");
 		cout << "Для продолжения нажмите пробел, чтобы выйти нажмите ESC" << endl;
 		PrintField(field, width, heigth);
-		correntHash = GetHashArray(field, width, heigth);
+		correntHash = GetMatrixHash(field, width, heigth);
 		if (hashes.count(correntHash) != 0) {
 			cout << "Замечен цикл, будете продолжать?" << endl
 				<< "Пробел - Да\nESC - Нет" << endl;
@@ -100,20 +100,20 @@ void PrintField(int** field, int width, int heigth) {
 }
 
 void LiveOrDieCell(int** field, int** newfield, int i, int j) {
-	int coutNeighbor{};
+	int countNeighbor{};
 	for (int n = i - 1; n <= i + 1; ++n) {
 		for (int m = j - 1; m <= j + 1; ++m) {
-			coutNeighbor += field[n][m];
+			countNeighbor += field[n][m];
 		}
 	}
-	coutNeighbor -= field[i][j];
-	if (coutNeighbor == 3 && field[i][j] == Dead)
+	countNeighbor -= field[i][j];
+	if (countNeighbor == 3 && field[i][j] == Dead)
 		newfield[i][j] = Alive;
-	if ((coutNeighbor < 2 || coutNeighbor > 3) && field[i][j] == Alive)
+	if ((countNeighbor < 2 || countNeighbor > 3) && field[i][j] == Alive)
 		newfield[i][j] = Dead;
 }
 
-unsigned int GetHashArray(int** field, int width, int heigth) {
+unsigned int GetMatrixHash(int** field, int width, int heigth) {
 	unsigned int hashX{};
 	unsigned int hashY{};
 

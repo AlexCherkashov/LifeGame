@@ -36,7 +36,7 @@ void RunProgram() {
 		switch (choice)
 		{
 		case Run::Life:
-			BeginOfProces();
+			BeginOfProcess();
 			system("cls");
 			break;
 		case Run::Exit:
@@ -47,7 +47,7 @@ void RunProgram() {
 	}
 }
 
-void BeginOfProces() {
+void BeginOfProcess() {
 	int choice{};
 	while (true) {
 		cout << "Выберите сповоб ввода данных\n" << "1 - Ввод с консоли\n"
