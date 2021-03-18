@@ -63,9 +63,9 @@ bool IsContinueToSave() {
 		CinClear();
 		switch (choice) {
 		case 1:
-			return (true);
+			return true;
 		case 2:
-			return (false);
+			return false;
 		default:
 			UnknownCommand();
 		}
@@ -83,10 +83,10 @@ bool ChoiceToSave(string dataType) {
 		switch (choice)
 		{
 		case Yes:
-			return (true);
+			return true;
 			break;
 		case No:
-			return (false);
+			return false;
 			break;
 		default:
 			UnknownCommand();
@@ -94,5 +94,5 @@ bool ChoiceToSave(string dataType) {
 			break;
 		}
 	}
-	return (true);
+	return true;
 }

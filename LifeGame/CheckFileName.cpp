@@ -65,7 +65,7 @@ bool check_reg(const string& path)
 			return false;
 		}
 
-	return(true);
+	return true;
 }
 
 void str_tolower(string& s) {

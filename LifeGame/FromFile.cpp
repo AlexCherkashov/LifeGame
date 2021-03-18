@@ -29,8 +29,8 @@ void FromFile() {
 		}
 	}
 
-	int width = input.at(0) + 2;
-	int heigth = input.at(1) + 2;
+	int width = input.at(0) + Border;
+	int heigth = input.at(1) + Border;
 
 	int** field = new int* [width];
 	for (int i = 0; i < width; i++) {
@@ -99,21 +99,12 @@ bool IsCorrectData(vector<int>& input) {
 	int width = input.at(0);
 	int heigth = input.at(1);
 
-	if (width < 3) {
-		cout << "Ўирина (первое значение) должно быть больше или равно 3м" << endl;
+	if (width < 3 || width > 32) {
+		cout << "Ўирина (первое значение) должна быть в диапазоне [3, 32]" << endl;
 		return false;
 	}
-	if (heigth < 3) {
-		cout << "¬ысота (второе значение) должно быть больше или равно 3м" << endl;
-		return false;
-	}
-
-	if (width > 32) {
-		cout << "Ўирина (первое значение) должно быть меньше или равно 32м" << endl;
-		return false;
-	}
-	if (heigth > 32) {
-		cout << "¬ысота (второе значение) должно быть меньше или равно 32м" << endl;
+	if (heigth < 3 || heigth > 32) {
+		cout << "¬ысота (второе значение) должна быть в диапазоне [3, 32]" << endl;
 		return false;
 	}
 
@@ -130,8 +121,17 @@ bool IsCorrectData(vector<int>& input) {
 			cout << "¬ " << (i + 1) << "й строке значение больше ширины" << endl;
 			return false;
 		}
-		if (x >= heigth) {
+		if (y >= heigth) {
 			cout << "¬ " << (i + 2) << "й строке значение больше высоты" << endl;
+			return false;
+		}
+
+		if (x < 0) {
+			cout << "¬ " << (i + 1) << "й строке значение должно быть больше 0" << endl;
+			return false;
+		}
+		if (y < 0) {
+			cout << "¬ " << (i + 2) << "й строке значение должно быть больше 0" << endl;
 			return false;
 		}
 	}
